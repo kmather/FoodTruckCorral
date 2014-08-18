@@ -3,20 +3,50 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Food Truck Corral - Round up nearby Food Trucks in San Francisco!</title>
+    <title>Food Truck Corral - Round up nearby food trucks!</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Map -->
-    <div id="map-canvas"></div>
+    <div id="header">
+        <img id="logo" class="navbar-brand"
+             src="img/foodtruckcorral.png">
+        <h2 id="title">Food&nbsp;Truck&nbsp;Corral</h2>
+    </div>
 
-    <div id="results">
 
+    <div id="content">
+        <div id="intro">
+            <p>Locate the nearest food trucks in the San Francisco area.<br/>
+                Drag the Blue Marker to find food trucks nearby.</p>
+        </div>
+        <div id="map-canvas"></div>
+
+        <div class="buttonSet">
+            <button type="button" id="buttonRadius1" class="btn btn-default" onclick="ftcorral.newRadius(.25, this)">
+                <span class="glyphicon glyphicon-star"></span>1/4 Mile</button>
+            <button type="button" id="buttonRadius2" class="btn btn-default" onclick="ftcorral.newRadius(.5, this)">
+                <span class="glyphicon glyphicon-star"></span>1/2 Mile</button>
+            <button type="button" id="buttonRadius3" class="btn btn-default btn-primary" onclick="ftcorral.newRadius(1, this)">
+                <span class="glyphicon glyphicon-star"></span>1 Mile</button>
+            <button type="button" id="buttonRadius4" class="btn btn-default" onclick="ftcorral.newRadius(50, this)">
+                <span class="glyphicon glyphicon-star"></span>All</button>
+        </div>
+        <div class="buttonSet">
+            <button type="button" id="buttonPreset1" class="btn btn-warning" onclick="ftcorral.newLocation(37.775942, -122.418063)">
+                <span class="glyphicon glyphicon-screenshot"></span>Uber HQ</button>
+            <button type="button" id="buttonPreset2" class="btn btn-warning" onclick="ftcorral.newLocation(37.791463, -122.399029)">
+                <span class="glyphicon glyphicon-screenshot"></span>Mechanics Monument Plaza</button>
+        </div>
+        <div id="results">
+
+        </div>
     </div>
 
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmpeMknvPlTrkFYWUQUjvrgAlX_Ve3lv0"></script>
     <script src="js/distance.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/bootstrap.js"></script>
 </body>
 </html>

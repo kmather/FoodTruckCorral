@@ -1,5 +1,55 @@
-#map-canvas {
-    width: 800px;
-    height: 400px;
-    background-color: #269abc;
+body {
+    background-color: #aca;
 }
+#header {
+    background-color: #cac;
+}
+#logo {
+    margin-top: -35px;
+    height: 100px;
+}
+#title {
+    font: 30px Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+    margin: 30px 0 0 100px;
+}
+#intro {
+    margin-top: 5px;
+}
+#content {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+}
+#map-canvas {
+    margin: 5px 0;
+    width: 100%;
+    height: 400px;
+    background-color: #888;
+}
+#results {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #9b9;
+}
+#results a {
+    color: #9c0000;
+}
+
+.buttonSet {
+    margin-bottom: 10px;
+}
+.glyphicon-screenshot {
+    margin-right: 10px;
+}
+
+
+@media (max-width: 500px) {
+    #logo {display: none;}
+}
+@media (max-width: 767px) {
+    #content { width: 90%; }
+}
+@media (min-width: 1200px) {
+    #content { width: 60%; }
+}
+

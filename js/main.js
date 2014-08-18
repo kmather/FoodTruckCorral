@@ -20,7 +20,7 @@
 
         $.getJSON(locUrl, function(data) {
             $.each(data, function(i, entry) {
-                createMarker(entry);
+                createMarkerAndData(entry);
             });
         })
     }
@@ -63,7 +63,8 @@
     // Get nearby trucks and update markers
     function updateTrucks() {
 
-        // Clear out existing markers
+        // Clear out existing data
+        $('#results').empty();
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
@@ -88,11 +89,13 @@
         getNearbyTrucks(current.pos.lat(), current.pos.lng(), current.radius);
     }
 
-    // Create a marker for a food truck
-    function createMarker(entry) {
+    // Create a marker for a food truck and matching data
+    function createMarkerAndData(entry) {
+
+        var cs = createContentString(entry);
 
         var infowindow = new google.maps.InfoWindow({
-            content: createContentString(entry)
+            content: cs
         });
 
         // Create a marker for the user's current location (or where they moved the marker)
@@ -109,22 +112,54 @@
         });
 
         markers.push(marker);
+        $('#results').append(cs);
+
     }
 
     function createContentString(entry) {
+        var index = markers.length;
+
         var content =
         '<div class="infoContent">' +
-        '<h3>' + entry.applicant + '</h3>' +
-        '<h4>' + entry.fooditems + '</h4>';
+        '<h4><a href="#" onclick="ftcorral.openMarker(' + index + ')">' + entry.applicant + '</a></h4>';
+
+        if (entry.fooditems !== undefined)
+            content += '<h5>' + entry.fooditems + '</h5>';
 
         if (entry.address !== undefined)
             content += '<p><b>Address</b>:' + entry.address + '<br/>' +
                 entry.locationdescription + '<br/>';
         if (entry.schedule !== undefined)
             content += '<p><a href="' + entry.schedule + '"><b>Schedule</b></a></p>';
-
+        content += '<br/>';
+        
         return content;
     }
 
+    // Exposed functions to change the radius
+    ftcorral.newRadius = function(radius, element) {
+
+        // Quick and dirty
+        $('#buttonRadius1').removeClass('btn-primary');
+        $('#buttonRadius2').removeClass('btn-primary');
+        $('#buttonRadius3').removeClass('btn-primary');
+        $('#buttonRadius4').removeClass('btn-primary');
+        $(element).addClass('btn-primary');
+
+        current.radius = radius;
+        updateTrucks();
+    }
+
+    ftcorral.newLocation = function(lat, lng) {
+        current.pos = new google.maps.LatLng( lat, lng);
+        map.setCenter(current.pos);
+        updateTrucks();
+    }
+
+    // Open google markers from an external source (the results links)
+    ftcorral.openMarker = function(id) {
+        google.maps.event.trigger(markers[id], 'click');
+    }
+
     google.maps.event.addDomListener(window, 'load', initialize());
-} (ftcorral = window.ftc || {}, google));
+} (ftcorral = window.ftcorral || {}, google));
